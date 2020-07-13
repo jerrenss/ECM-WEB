@@ -1,7 +1,8 @@
 import React from 'react'
+import Routes from './Routes'
 
 function App() {
-  return <div style={{ fontFamily: 'Montserrat' }}>Hello World</div>
+  return <Routes />
 }
 
 export default App
