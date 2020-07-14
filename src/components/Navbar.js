@@ -34,10 +34,13 @@ const Navbar = (props) => {
   const { history } = props
   const classes = useStyles()
 
+  const redirectHome = () => {
+    history.push('/')
+  }
   return (
     <AppBar position="static" className={classes.navbarWrapper}>
       <Toolbar className={classes.toolbar}>
-        <IconButton edge="start" color="inherit">
+        <IconButton edge="start" color="inherit" onClick={redirectHome}>
           <PublicIcon />
         </IconButton>
         <Typography className={classes.title}>ECM</Typography>
@@ -48,10 +51,7 @@ const Navbar = (props) => {
           <Link to="/signup">
             <Button color="inherit">Sign Up</Button>
           </Link>
-          <Button
-            color="inherit"
-            onClick={() => signOut(() => history.push('/'))}
-          >
+          <Button color="inherit" onClick={() => signOut(redirectHome)}>
             Sign Out
           </Button>
         </Hidden>
