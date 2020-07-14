@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import PublicIcon from '@material-ui/icons/Public'
 import { Link, withRouter } from 'react-router-dom'
+import { signOut } from '../api/auth'
 
 const defaultText = {
   fontFamily: FONTS.montserrat,
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Navbar = (props) => {
+  const { history } = props
   const classes = useStyles()
 
   return (
@@ -44,12 +46,18 @@ const Navbar = (props) => {
             <Button color="inherit">Sign In</Button>
           </Link>
           <Link to="/signup">
-            <Button color="inherit">Register</Button>
+            <Button color="inherit">Sign Up</Button>
           </Link>
+          <Button
+            color="inherit"
+            onClick={() => signOut(() => history.push('/'))}
+          >
+            Sign Out
+          </Button>
         </Hidden>
       </Toolbar>
     </AppBar>
   )
 }
 
-export default Navbar
+export default withRouter(Navbar)
