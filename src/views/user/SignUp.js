@@ -103,8 +103,9 @@ const SignUp = () => {
             variant="outlined"
             onChange={handleChange('password')}
             value={password}
+            type="password"
           />
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button variant="contained" type="submit" onClick={handleSubmit}>
             Submit
           </Button>
         </form>

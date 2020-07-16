@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import makeStyles from '@material-ui/core/styles/makeStyles'
 import { Box, TextField, Typography, Button } from '@material-ui/core'
 import Layout from '../../components/Layout'
-import { signIn, authenticate } from '../../api/auth'
+import { signIn, authenticate, isAuthenticated } from '../../api/auth'
 import { Redirect } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
   const classes = useStyles()
+
+  const { user } = isAuthenticated()
 
   const [values, setValues] = useState({
     email: '',
@@ -74,6 +76,13 @@ const SignIn = () => {
 
   const redirectUser = () => {
     if (redirectToReferrer) {
+      if (user && user.role === 1) {
+        return <Redirect to="/admin/dashboard" />
+      } else {
+        return <Redirect to="/user/dashboard" />
+      }
+    }
+    if (user) {
       return <Redirect to="/" />
     }
   }
@@ -96,8 +105,9 @@ const SignIn = () => {
             variant="outlined"
             onChange={handleChange('password')}
             value={password}
+            type="password"
           />
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button variant="contained" type="submit" onClick={handleSubmit}>
             Submit
           </Button>
         </form>
