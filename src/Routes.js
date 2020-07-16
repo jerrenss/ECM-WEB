@@ -3,6 +3,10 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import SignUp from './views/user/SignUp'
 import SignIn from './views/user/SignIn'
 import Home from './views/home'
+import PrivateRoute from './PrivateRoute'
+import UserDashboard from './views/user/UserDashboard'
+import AdminRoute from './AdminRoute'
+import AdminDashboard from './views/user/AdminDashboard'
 
 const Routes = () => {
   return (
@@ -11,6 +15,8 @@ const Routes = () => {
         <Route path="/" exact component={Home} />
         <Route path="/signin" exact component={SignIn} />
         <Route path="/signup" exact component={SignUp} />
+        <PrivateRoute path="/user/dashboard" exact component={UserDashboard} />
+        <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
       </Switch>
     </BrowserRouter>
   )
