@@ -47,6 +47,9 @@ const Navbar = (props) => {
         <Hidden xsDown>
           {isAuthenticated() ? (
             <>
+              <Link to="/shop">
+                <Button color="inherit">Shop</Button>
+              </Link>
               {isAuthenticated().user.role === 1 ? (
                 <Link to="/admin/dashboard">
                   <Button color="inherit">Dashboard</Button>
