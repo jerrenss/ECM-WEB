@@ -4,6 +4,7 @@ import { Box, Typography, Grid } from '@material-ui/core'
 import Layout from '../../components/Layout'
 import { getSortedProducts } from '../../api/product'
 import ProductCard from '../../components/ProductCard'
+import Search from '../../components/Search'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -44,6 +45,8 @@ const Home = () => {
     <Layout>
       <Box className={classes.root}>
         <Typography variant="h4">Home</Typography>
+        <hr />
+        <Search />
         <hr />
         <Typography variant="h5">New Arrivals</Typography>
         <Grid container spacing={1}>
