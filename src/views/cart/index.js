@@ -5,6 +5,7 @@ import Layout from '../../components/Layout'
 import { getCart } from './utils'
 import ProductCard from '../../components/ProductCard'
 import { Link } from 'react-router-dom'
+import Checkout from './Checkout'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -13,15 +14,18 @@ const useStyles = makeStyles((theme) => ({
 const Cart = () => {
   const classes = useStyles()
   const [items, setItems] = useState([])
+  const [run, setRun] = useState(false)
 
   useEffect(() => {
     setItems(getCart())
-  }, [])
+  }, [run])
 
   const showItems = (items) => {
     return (
       <Box>
-        <Typography>Your cart has {`${items.length}`} items</Typography>
+        <Typography variant="h4">
+          Your cart has {`${items.length}`} items
+        </Typography>
         {items.map((product, i) => (
           <ProductCard
             key={i}
@@ -29,6 +33,8 @@ const Cart = () => {
             hasAddToCartBtn={false}
             hasRemoveProductBtn={true}
             cardUpdate={true}
+            setRun={setRun}
+            run={run}
           />
         ))}
       </Box>
@@ -46,8 +52,14 @@ const Cart = () => {
   return (
     <Layout>
       <Box className={classes.root}>
-        <Typography variant="h5">Cart</Typography>
-        {items.length > 0 ? showItems(items) : emptyCartMessage()}
+        <Grid container>
+          <Grid item xs={6}>
+            {items.length > 0 ? showItems(items) : emptyCartMessage()}
+          </Grid>
+          <Grid item xs={6}>
+            <Checkout products={items} setRun={setRun} run={run} />
+          </Grid>
+        </Grid>
       </Box>
     </Layout>
   )

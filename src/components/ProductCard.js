@@ -30,6 +30,8 @@ const ProductCard = (props) => {
     hasAddToCartBtn = true,
     hasRemoveProductBtn = false,
     cardUpdate = false,
+    setRun = (f) => f,
+    run = undefined,
   } = props
 
   const [redirect, setRedirect] = useState(false)
@@ -54,6 +56,7 @@ const ProductCard = (props) => {
   }
 
   const handleChange = (productId) => (event) => {
+    setRun(!run) // run useEffect in parent Cart
     setCount(event.target.value < 1 ? 1 : event.target.value)
     if (event.target.value >= 1) {
       updateItem(productId, event.target.value)
