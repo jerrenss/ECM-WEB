@@ -82,7 +82,7 @@ const ProductCard = (props) => {
         <Button
           onClick={() => {
             removeItem(product._id)
-            // setRun(!run); // run useEffect in parent Cart
+            setRun(!run)
           }}
         >
           Remove Product
