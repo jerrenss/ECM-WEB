@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton'
 import PublicIcon from '@material-ui/icons/Public'
 import { Link, withRouter } from 'react-router-dom'
 import { signOut, isAuthenticated } from '../api/auth'
+import { itemTotal } from '../views/cart/utils'
 
 const defaultText = {
   fontFamily: FONTS.montserrat,
@@ -49,6 +50,14 @@ const Navbar = (props) => {
             <>
               <Link to="/shop">
                 <Button color="inherit">Shop</Button>
+              </Link>
+              <Link to="/cart">
+                <Button color="inherit">
+                  Cart
+                  <sup>
+                    <medium>({itemTotal()})</medium>
+                  </sup>
+                </Button>
               </Link>
               {isAuthenticated().user.role === 1 ? (
                 <Link to="/admin/dashboard">

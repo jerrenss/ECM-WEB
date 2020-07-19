@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Typography, Button } from '@material-ui/core'
+import { Box, Typography, Button, Grid } from '@material-ui/core'
 import { getCategories } from '../api/category'
+import { list } from '../api/product'
+import ProductCard from './ProductCard'
 
 const Search = () => {
   const [data, setData] = useState({
@@ -23,12 +25,52 @@ const Search = () => {
     })
   }
 
-  const searchSubmit = () => {
-    //
+  const searchSubmit = (event) => {
+    event.preventDefault()
+    searchData()
   }
 
-  const handleChange = () => {
-    //
+  const searchMessage = (searched, results) => {
+    if (searched && results.length > 0) {
+      return `Found ${results.length} products`
+    }
+    if (searched && results.length < 1) {
+      return `No products found`
+    }
+  }
+
+  const searchData = () => {
+    if (search) {
+      list({ search: search || undefined, category: category }).then(
+        (response) => {
+          if (response?.error) {
+            console.log(response?.error)
+          } else {
+            setData({ ...data, results: response, searched: true })
+          }
+        },
+      )
+    }
+  }
+
+  const handleChange = (name) => (event) => {
+    setData({ ...data, [name]: event.target.value, searched: false })
+  }
+
+  const searchedProducts = (results = []) => {
+    return (
+      <Box>
+        <Typography variant="h5">Search Results</Typography>
+        <Typography>{searchMessage(searched, results)}</Typography>
+        <Grid container spacing={1}>
+          {results.map((product) => (
+            <Grid item xs={3}>
+              <ProductCard product={product} />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    )
   }
 
   const searchForm = () => (
@@ -53,7 +95,7 @@ const Search = () => {
           />
         </div>
         <div style={{ border: 'none' }}>
-          <Button>Search</Button>
+          <Button onClick={searchSubmit}>Search</Button>
         </div>
       </span>
     </form>
@@ -63,7 +105,12 @@ const Search = () => {
     loadCategories()
   }, [])
 
-  return <Box>{searchForm()}</Box>
+  return (
+    <Box>
+      {searchForm()}
+      {searchedProducts(results)}
+    </Box>
+  )
 }
 
 export default Search
