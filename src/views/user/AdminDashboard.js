@@ -23,6 +23,7 @@ const AdminDashboard = (props) => {
         <Box>
           <Link to="/create/category">Create Category</Link>
           <Link to="/create/product">Create Product</Link>
+          <Link to="/admin/orders">View Orders</Link>
         </Box>
         <Box>
           <Typography variant="h6">Admin Information</Typography>

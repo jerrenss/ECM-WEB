@@ -5,6 +5,7 @@ import { isAuthenticated } from '../../api/auth'
 import { getBraintreeClientToken, processPayment } from '../../api/braintree'
 import DropIn from 'braintree-web-drop-in-react'
 import { emptyCart } from './utils'
+import { createOrder } from '../../api/order'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -40,10 +41,9 @@ const Checkout = (props) => {
   const buy = () => {
     let nonce
     let getNonce = data.instance
-      .requestPaymentMethod()
-      .then((data) => {
-        console.log(data)
-        nonce = data.nonce
+      ?.requestPaymentMethod()
+      .then((result) => {
+        nonce = result.nonce
 
         const paymentData = {
           paymentMethodNonce: nonce,
@@ -51,7 +51,15 @@ const Checkout = (props) => {
         }
         processPayment(user?._id, token, paymentData)
           .then((response) => {
-            // console.log(response)
+            const createOrderData = {
+              products: products,
+              transaction_id: response.transaction.id,
+              amount: response.transaction.amount,
+              address: data.address,
+            }
+            // console.log('RESPONSE: ', response, 'DATA: ', data)
+            // console.log(createOrderData)
+            createOrder(user?._id, token, createOrderData)
             setData({ ...data, success: response.success })
             emptyCart(() => {
               setRun(!run)
@@ -65,10 +73,22 @@ const Checkout = (props) => {
       })
   }
 
+  const handleAddress = (event) => {
+    setData({ ...data, address: event.target.value })
+  }
+
   const showDropIn = () => {
     if (data.clientToken && products.length > 0) {
       return (
         <Box onBlur={() => setData({ ...data, error: '' })}>
+          <div>
+            <label>Delivery address:</label>
+            <textarea
+              onChange={handleAddress}
+              value={data.address}
+              placeholder="Type your delivery address here..."
+            />
+          </div>
           <DropIn
             options={{
               authorization: data.clientToken,
