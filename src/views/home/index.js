@@ -44,7 +44,7 @@ const Home = () => {
   return (
     <Layout>
       <Box className={classes.root}>
-        <Typography variant="h4">Home</Typography>
+        <Typography variant="h4">Home Page</Typography>
         <hr />
         <Search />
         <hr />
