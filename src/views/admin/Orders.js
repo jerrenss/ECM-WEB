@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import makeStyles from '@material-ui/core/styles/makeStyles'
-import { Box, Typography, Grid } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import Layout from '../../components/Layout'
 import { isAuthenticated } from '../../api/auth'
 import { listOrders, getStatusValues, updateOrderStatus } from '../../api/order'
