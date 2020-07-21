@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import makeStyles from '@material-ui/core/styles/makeStyles'
-import { Box, Button, Typography, Grid } from '@material-ui/core'
+import { Box, Button, Typography } from '@material-ui/core'
 import { isAuthenticated } from '../../api/auth'
 import { getBraintreeClientToken, processPayment } from '../../api/braintree'
 import DropIn from 'braintree-web-drop-in-react'
