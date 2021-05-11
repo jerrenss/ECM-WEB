@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "braintree-web-drop-in-react": "^1.1.1",
     "dotenv": "^8.2.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "moment": "^2.27.0",
     "query-string": "^6.13.1",
     "react": "^16.13.1",
